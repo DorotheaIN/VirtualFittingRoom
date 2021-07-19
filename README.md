@@ -1,7 +1,7 @@
 # Virtual Fitting Room
 SITP Project Virtual Fitting Room
 
-#### 2021.7.19 与刘志成学长讨论，总结方案如下
+#### 2021.7.19 与学长讨论，总结方案如下
 
 1. 使用自己绑定骨骼模型，衣服与人体绑定同一骨骼（21块）通过代码改变骨骼权重；
 
