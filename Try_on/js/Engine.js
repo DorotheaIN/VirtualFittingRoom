@@ -3,6 +3,8 @@ function Engine()
 {
     this.scene = new THREE.Scene();
     var scope = this;
+
+    // these are some fundamental elements in a 3D webpage
     this.renderer = new THREE.WebGLRenderer({alpha:true,antialias:true});
     this.camera  = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight,1,10000);
     this.dirLight = new THREE.DirectionalLight(0xF79F81);
@@ -48,7 +50,7 @@ function Engine()
         requestAnimationFrame(scope.Render);
     }
 
-    // engine start
+    // engine start, rendering all the elements to the page
     this.start = function()
     {
         this.initCamera();
