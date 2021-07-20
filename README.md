@@ -14,7 +14,7 @@ SITP Project Virtual Fitting Room
 
 本来想把我的threejs迁移到最新版，可是发现要用import之类的，又和npm啥的有关系了，跑不通。无奈只能先用92dev做。
 
-#### 2020.7.20 版本迁移说明（92dev->latest）
+#### 2021.7.20 版本迁移说明（92dev->latest）
 
 新版的threejs 使用的是ES6 直接引入跑不起来的原因是它使用了import和export 我的修改方法是将所有使用import和export的js文件，引入时都将type指定为module,若不用import 则指定为text/javascript,具体如下：
 
