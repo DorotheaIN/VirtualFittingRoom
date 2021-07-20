@@ -1,4 +1,6 @@
 // a generalized web3D initializing engine
+// not using ES6 so it is imported as "text/javascript"
+
 function Engine()
 {
     this.scene = new THREE.Scene();
@@ -10,6 +12,7 @@ function Engine()
     this.dirLight = new THREE.DirectionalLight(0xF79F81);
     this.ambient = new THREE.AmbientLight(0xffdab3);
     this.control = new THREE.OrbitControls(scope.camera,scope.renderer.domElement)
+
     // camera
     this.initCamera = function()
     {
@@ -60,6 +63,7 @@ function Engine()
         this.Render();
     }
 }
+
 // You can use it like this
 /*
  var engine = new Engine();

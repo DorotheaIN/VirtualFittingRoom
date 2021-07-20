@@ -1,12 +1,15 @@
+// (ES6) import external elements
+import {GLTFLoader} from "./GLTFLoader.js";
+import * as THREE from "./three.module.js";
 // using Engine.js
 var engine = new Engine();
-// GLBLoader
-var loaderGLB = new THREE.GLTFLoader();
+// GLTFLoader
+var loaderGLB = new GLTFLoader();
 // array of bone inverses
 var boneArray = [];
 // array of skinned meshes
 var skinnedMesh = []
-// ???
+//
 var obj = new THREE.Object3D();
 
 // initialize skinnedMesh array
@@ -85,8 +88,6 @@ function loadGLB()
         obj.add(scene);
         // console.log(obj);
         obj.children[0].scale.set(100,100,100);
-        // change(skinnedMesh,0,new THREE.Vector3(2,1,1))
-        // change(skinnedMesh,4,new THREE.Vector3(2,2,1));
         changeScale(skinnedMesh,17,new THREE.Vector3(1.5,1,1));
         engine.scene.add(obj);
 
