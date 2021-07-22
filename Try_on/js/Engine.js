@@ -1,5 +1,6 @@
 // a generalized web3D initializing engine
 // not using ES6 so it is imported as "text/javascript"
+
 function Engine()
 {
     this.scene = new THREE.Scene();

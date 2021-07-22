@@ -8,9 +8,11 @@ var loaderGLB = new GLTFLoader();
 // array of bone inverses
 var boneArray = [];
 // array of skinned meshes
-var skinnedMesh = []
+var skinnedMesh = [];
 //
 var obj = new THREE.Object3D();
+
+var clothBoneArray=[];
 
 // initialize skinnedMesh array
 function initSkinnedMesh(glb)
@@ -32,6 +34,11 @@ function initBoneInverse(boneArray,skinnedMesh)
         var copy = new THREE.Matrix4().copy(boneInverse[i]);
         boneArray.push(copy);
     }
+    boneInverse=skinnedMesh[skinnedMesh.length-1].skeleton.boneInverses;
+    for(var i=0;i<boneInverse.length;i++){
+        var copy=new THREE.Matrix4().copy(boneInverse[i]);
+        clothBoneArray.push(copy);
+    }
 }
 
 // change the scale of bones
@@ -43,10 +50,21 @@ function changeScale(skinnedMesh,adjustIndex,scale)
     // console.log(bone.elements)
     bone.scale(scale);
     // console.log(bone.elements)
-    for(var i = 0;i<skinnedMesh.length;i++)
+    for(var i = 0;i<skinnedMesh.length-1;i++)
     {
         skinnedMesh[i].skeleton.boneInverses[adjustIndex] = bone;
     }
+}
+
+function changeClothScale(skinnedMesh,adjustIndex,scale)
+{
+    // console.log(skinnedMesh);
+    var bone = new THREE.Matrix4().copy(clothBoneArray[adjustIndex]);
+    // var scale = new THREE.Vector3(2,1,1);
+    // console.log(bone.elements)
+    bone.scale(scale);
+    // console.log(bone.elements)
+    skinnedMesh[skinnedMesh.length-1].skeleton.boneInverses[adjustIndex] = bone;
 }
 
 // change the weight of a bone
@@ -75,9 +93,10 @@ function changeScale(skinnedMesh,adjustIndex,scale)
 // load a model to a webpage
 function loadGLB()
 {
-    loaderGLB.load("model/people/try.glb",(glb)=>
+    loaderGLB.load("model/people/model.glb",(glb)=>
     {
         var scene = glb.scene;
+        console.log(scene);
         initSkinnedMesh(glb);
         // for(var i = 0;i<skinnedMesh.length;i++)
         // {
@@ -88,11 +107,27 @@ function loadGLB()
         obj.add(scene);
         // console.log(obj);
         obj.children[0].scale.set(100,100,100);
-        changeScale(skinnedMesh,17,new THREE.Vector3(1.5,1,1));
+        changeScale(skinnedMesh,35,new THREE.Vector3(1.5,1,1));
+        changeClothScale(skinnedMesh,7,new THREE.Vector3(1.3,1,1));
         engine.scene.add(obj);
-
     })
+}
 
+function change(adjustIndex,type){
+    if(type==1){
+        if(adjustIndex==35){
+            var size = document.getElementById("bodySpine02_size").value;
+            console.log(bodySpine02_size.value+"&&"+size);
+            document.getElementById("valbodySpine02").innerHTML = size;
+        }
+        changeScale(skinnedMesh,adjustIndex,new THREE.Vector3(size,1,1));
+    }else{
+        if(adjustIndex==7){
+            var size = document.getElementById("clothSpine02_size").value;
+            document.getElementById("valclothSpine02").innerHTML = size;
+        }
+        changeClothScale(skinnedMesh,adjustIndex,new THREE.Vector3(1.3,1,1));
+    }
 }
 
 engine.start();
